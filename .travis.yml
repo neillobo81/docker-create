@@ -1,0 +1,7 @@
+sudo: required
+serivces:
+  - docker
+before_install:
+  - docker build -t yellowjet200/docker -f Dockerfile.dev .
+script:
+  - docker run -e CI=true yellowjet200/docker npm run test
