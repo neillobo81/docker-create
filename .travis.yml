@@ -5,3 +5,15 @@ before_install:
   - docker build -t yellowjet200/docker -f Dockerfile.dev .
 script:
   - docker run -e CI=true yellowjet200/docker npm run test
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker"
+  env:  "Docker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-686345797740"
+  bucket_path: "docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
